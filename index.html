@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EX-MHS Cricket Tournament</title>
+<style>
+:root{--navy:#101c2c;--green:#15945b;--bg:#f3f6f8;--ink:#182331;--muted:#667586}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Noto Sans Bengali",sans-serif;color:var(--ink)}
+header{background:var(--navy);color:#fff;padding:18px 16px}header strong{font-size:21px}header small{display:block;color:#b9d4ca;margin-top:5px}
+nav{display:flex;overflow:auto;background:#17283d;color:white;gap:4px;padding:8px}nav button{white-space:nowrap;border:0;border-radius:8px;padding:10px 13px;background:transparent;color:white;font-weight:700}nav button.active{background:var(--green)}
+main{max-width:850px;margin:16px auto;padding:0 12px}.panel{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 9px #14263a0c}
+h2{font-size:19px;margin:0 0 13px}h3{font-size:16px;margin:12px 0 8px}.score{background:linear-gradient(135deg,#102238,#1c4d49);color:white;border-radius:14px;padding:18px}.score .big{font-size:32px;font-weight:800;margin:8px 0}.muted{color:var(--muted);font-size:13px}.score .muted{color:#c8d9de}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{display:block;font-size:13px;font-weight:700;margin:8px 0 5px}input,select{width:100%;padding:11px;border:1px solid #ccd5dd;border-radius:8px;background:#fff;font-size:15px}button.action{border:0;background:var(--green);color:white;padding:11px 14px;border-radius:8px;font-weight:700;margin:5px 4px 5px 0}button.secondary{background:#e8edf0;color:#17283d}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #edf0f2}.hidden{display:none}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px 6px;border-bottom:1px solid #e8edf0}th{color:#5a6b7c}.pill{background:#e3f6ec;color:#137548;border-radius:99px;padding:4px 8px;font-size:12px;font-weight:700}
+footer{text-align:center;color:#788694;padding:22px;font-size:12px}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.score .big{font-size:28px}}
+</style>
+</head>
+<body>
+<header><strong>🏏 EX-MHS Cricket Tournament</strong><small>স্কুল ক্রিকেট • ১০ ওভারের ম্যাচ • Tournament Centre</small></header>
+<nav id="nav"><button class="active" data-page="home">Home</button><button data-page="live">Live Score</button><button data-page="fixtures">Fixtures</button><button data-page="points">Points Table</button><button data-page="admin">Admin / Scorer</button></nav>
+<main>
+<section id="home" class="page">
+<div class="score"><span class="pill">TOURNAMENT</span><h2 style="margin-top:12px">স্বাগতম!</h2><div>EX-MHS Cricket Tournament</div><p class="muted">ম্যাচ, টস, স্কোর এবং পয়েন্ট টেবিল এক জায়গায় দেখুন।</p><div class="big" id="homeTeams">দল যোগ করুন</div><button class="action" onclick="showPage('admin')">ম্যাচ সেটআপ করুন</button></div>
+<div class="panel"><h2>সর্বশেষ ম্যাচ</h2><div id="homeMatch" class="muted">এখনও কোনো ম্যাচ তৈরি হয়নি। Admin / Scorer থেকে ম্যাচ তৈরি করুন।</div></div>
+<div class="panel"><h2>এই সাইটে</h2><div class="grid"><div>📡 <b>স্কোর আপডেট</b><p class="muted">স্কোরারের মাধ্যমে রান ও উইকেট</p></div><div>🪙 <b>টসের তথ্য</b><p class="muted">টস জয়ী ও সিদ্ধান্ত</p></div><div>🏏 <b>দুই ইনিংস</b><p class="muted">প্রথম ও দ্বিতীয় ইনিংস</p></div><div>🏆 <b>পয়েন্ট টেবিল</b><p class="muted">ম্যাচ ফলের ভিত্তিতে</p></div></div></div>
+</section>
+<section id="live" class="page hidden"><div class="panel"><h2>Live Score</h2><div id="liveContent" class="muted">কোনো ম্যাচ নেই। Admin / Scorer থেকে তৈরি করুন।</div></div></section>
+<section id="fixtures" class="page hidden"><div class="panel"><h2>Fixtures & Results</h2><div id="fixturesContent" class="muted">এখনও কোনো ম্যাচ নেই।</div></div></section>
+<section id="points" class="page hidden"><div class="panel"><h2>Points Table</h2><div id="pointsContent" class="muted">ম্যাচের ফলাফল হলে পয়েন্ট দেখাবে।</div></div></section>
+<section id="admin" class="page hidden">
+<div class="panel"><h2>Admin / Scorer</h2><p class="muted">এই ডেমোতে তথ্য এই ফোনের একই ব্রাউজারে সেভ হয়। অনলাইনে সবার সঙ্গে লাইভ শেয়ার হয় না।</p>
+<h3>১. দল যোগ করুন</h3><div class="grid"><div><label>দলের নাম</label><input id="teamName" placeholder="যেমন: MHS Tigers"></div><div style="align-self:end"><button class="action" onclick="addTeam()">দল যোগ করুন</button></div></div><div id="teamList" class="muted">এখনও দল যোগ হয়নি।</div>
+<h3>২. ম্যাচ তৈরি ও টস</h3><div class="grid"><div><label>প্রথম দল</label><select id="teamA"></select></div><div><label>দ্বিতীয় দল</label><select id="teamB"></select></div><div><label>টস জিতেছে</label><select id="tossWinner"></select></div><div><label>টস জিতে সিদ্ধান্ত</label><select id="tossDecision"><option value="bat">আগে ব্যাটিং</option><option value="bowl">আগে বোলিং</option></select></div></div><button class="action" onclick="createMatch()">ম্যাচ তৈরি করুন</button>
+<div id="matchSetup"></div>
+</div></section>
+</main><footer>EX-MHS Cricket Tournament • Free starter website</footer>
+<script>
+const KEY='exmhs-cricket-v1';let state={teams:[],matches:[]};
+try{state=JSON.parse(localStorage.getItem(KEY))||state}catch(e){}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
+function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('hidden',x.id!==id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));render()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function addTeam(){let n=document.getElementById('teamName').value.trim();if(!n)return alert('দলের নাম লিখুন');if(state.teams.includes(n))return alert('এই দল আগে থেকেই আছে');state.teams.push(n);document.getElementById('teamName').value='';save()}
+function fillSelect(id,includeAll=true){let s=document.getElementById(id),old=s.value;s.innerHTML='';state.teams.forEach(t=>{let o=document.createElement('option');o.value=t;o.textContent=t;s.appendChild(o)});if(state.teams.includes(old))s.value=old}
+function createMatch(){if(state.teams.length<2)return alert('আগে অন্তত ২টি দল যোগ করুন');let a=document.getElementById('teamA').value,b=document.getElementById('teamB').value;if(!a||!b||a===b)return alert('দুটি আলাদা দল বেছে নিন');let tw=document.getElementById('tossWinner').value;if(!tw)tw=a;let dec=document.getElementById('tossDecision').value;let first=dec==='bat'?tw:(tw===a?b:a);let second=first===a?b:a;state.matches.unshift({id:Date.now(),a,b,tossWinner:tw,decision:dec,first,second,inn:1,scores:{[first]:{runs:0,wkts:0,balls:0},[second]:{runs:0,wkts:0,balls:0}},status:'Live'});save()}
+function updateScore(id,team,kind,amount){let m=state.matches.find(x=>x.id===id);if(!m)return;let s=m.scores[team];if(kind==='runs')s.runs=Math.max(0,s.runs+amount);if(kind==='wkts')s.wkts=Math.max(0,Math.min(10,s.wkts+amount));if(kind==='balls')s.balls=Math.max(0,s.balls+amount);save()}
+function secondInnings(id){let m=state.matches.find(x=>x.id===id);if(m){m.inn=2;save()}}
+function finishMatch(id){let m=state.matches.find(x=>x.id===id);if(m){m.status='Completed';save()}}
+function card(m){let batting=m.inn===1?m.first:m.second;let s=m.scores[batting],target=m.scores[m.first].runs+1;let overs=Math.floor(s.balls/6)+'.'+(s.balls%6);return `<div class="score" style="margin:10px 0"><span class="pill">${m.status==='Live'?'LIVE':m.status.toUpperCase()}</span><p>${m.a} vs ${m.b}</p><div class="muted">টস: ${m.tossWinner} জিতেছে, ${m.decision==='bat'?'আগে ব্যাটিং':'আগে বোলিং'} বেছে নিয়েছে</div><div class="big">${batting}: ${s.runs}/${s.wkts}</div><div>${overs} ওভার • ${m.inn===2?'টার্গেট: '+target:'প্রথম ইনিংস'}</div>${m.inn===2?`<p>প্রথম ইনিংস: ${m.first} ${m.scores[m.first].runs}/${m.scores[m.first].wkts}</p>`:''}<p class="muted">ব্যাটিং দল: ${batting}</p></div><div class="panel"><h3>স্কোরার কন্ট্রোল</h3><div class="muted">বর্তমান ইনিংসের দল: ${batting}</div>${[0,1,2,3,4,6].map(n=>`<button class="action" onclick="updateScore(${m.id},'${batting}','runs',${n})">+${n} রান</button>`).join('')}<button class="action secondary" onclick="updateScore(${m.id},'${batting}','wkts',1)">উইকেট +1</button><button class="action secondary" onclick="updateScore(${m.id},'${batting}','balls',1)">বল +1</button>${m.inn===1?`<button class="action" onclick="secondInnings(${m.id})">▶ দ্বিতীয় ইনিংস শুরু</button>`:`<button class="action" onclick="finishMatch(${m.id})">ম্যাচ শেষ করুন</button>`}</div>`}
+function render(){['teamA','teamB','tossWinner'].forEach(id=>fillSelect(id));document.getElementById('teamList').innerHTML=state.teams.length?state.teams.map(t=>`<div class="row">${t}</div>`).join(''):'এখনও দল যোগ হয়নি।';document.getElementById('homeTeams').textContent=state.teams.length+'টি দল';let m=state.matches[0];document.getElementById('homeMatch').innerHTML=m?card(m):'এখনও কোনো ম্যাচ তৈরি হয়নি।';document.getElementById('liveContent').innerHTML=state.matches.length?state.matches.map(card).join(''):'কোনো ম্যাচ নেই।';document.getElementById('fixturesContent').innerHTML=state.matches.length?state.matches.map(m=>`<div class="row"><div><b>${m.a} vs ${m.b}</b><div class="muted">টস: ${m.tossWinner} • ${m.status}</div></div><span>${m.scores[m.a].runs}/${m.scores[m.a].wkts} - ${m.scores[m.b].runs}/${m.scores[m.b].wkts}</span></div>`).join(''):'এখনও কোনো ম্যাচ নেই।';document.getElementById('pointsContent').innerHTML=state.teams.length?'<table><tr><th>দল</th><th>ম্যাচ</th><th>পয়েন্ট</th></tr>'+state.teams.map(t=>{let ms=state.matches.filter(m=>m.status==='Completed');let played=ms.filter(m=>m.a===t||m.b===t).length;let pts=ms.reduce((p,m)=>p+((m.scores[m.a].runs>m.scores[m.b].runs&&m.a===t)||(m.scores[m.b].runs>m.scores[m.a].runs&&m.b===t)?2:0),0);return `<tr><td>${t}</td><td>${played}</td><td>${pts}</td></tr>`}).join('')+'</table>':'এখনও দল যোগ হয়নি।';document.getElementById('matchSetup').innerHTML=state.matches.length?'<h3>তৈরি করা ম্যাচ</h3>'+state.matches.map(m=>`<div class="row">${m.a} vs ${m.b} — ${m.status}</div>`).join(''):''}
+render();
+</script></body></html>
